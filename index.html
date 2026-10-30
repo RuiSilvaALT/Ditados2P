@@ -4,7 +4,7 @@ const $=id=>document.getElementById(id),status=$('status'),slots=$('slots'),led=
 let seq=[],playing=false,token=0,ctx=null,active=[];
 const audios=Object.fromEntries(Array.from({length:10},(_,i)=>[i+1,new Audio(`sons/som${i+1}.mp3`)]));
 Object.values(audios).forEach(a=>a.preload='auto');
-function choose(){const first=ids.filter(n=>n!==3&&n!==8);let a=first[Math.floor(Math.random()*first.length)];return a===1?[1]:[a,ids[Math.floor(Math.random()*ids.length)]];}
+function choose(){const first=ids.filter(n=>n!==3&&n!==8);let a=first[Math.floor(Math.random()*first.length)];return a===1?[1]:[a,2+Math.floor(Math.random()*9)];}
 function render(reveal=false){slots.innerHTML='';if(reveal&&seq.length===1){let d=document.createElement('div');d.className='slot double';d.innerHTML='<img alt="Célula 1" src="imagens/img1.png">';slots.append(d);return;}for(let i=0;i<2;i++){let d=document.createElement('div');d.className='slot';if(reveal){let img=document.createElement('img');img.src=`imagens/img${seq[i]}.png`;img.alt=`Célula ${seq[i]}`;d.append(img)}slots.append(d)}}
 function stop(){token++;active.forEach(a=>{a.pause();a.currentTime=0});active=[];led.className='led';playing=false;buttons();}
 function buttons(){ $('new').disabled=playing;$('again').disabled=playing||!seq.length;$('show').disabled=playing||!seq.length;}
